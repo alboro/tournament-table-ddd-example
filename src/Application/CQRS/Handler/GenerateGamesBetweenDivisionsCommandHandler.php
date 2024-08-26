@@ -57,6 +57,6 @@ final class GenerateGamesBetweenDivisionsCommandHandler implements GenerateGames
         }
 
 
-        return $this->gameTransformer->transform(...$createdGames);
+        return $this->gameTransformer->transform($championship, ...$createdGames);
     }
 }

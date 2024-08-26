@@ -2,12 +2,13 @@
 
 namespace App\Application\Transformer;
 
+use App\Domain\Entity\Championship;
 use App\Domain\Entity\Game;
 use App\Domain\Enum\TeamType;
 
 final class GameTransformer implements GameTransformerInterface
 {
-    public function transform(Game ...$games): array
+    public function transform(Championship $championship, Game ...$games): array
     {
         $gamesAsType = [];
 
@@ -22,7 +23,7 @@ final class GameTransformer implements GameTransformerInterface
         }
 
         return [
-            'championshipId' => isset($game) ? $game->teamOne()->championship()->id()->toString() : null,
+            'championshipId' => $championship->id()->toString(),
             'games' => $gamesAsType,
             'teamTypes' => array_map(function (TeamType $teamType) { return $teamType->value; }, TeamType::cases()),
         ];
