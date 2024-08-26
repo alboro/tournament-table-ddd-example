@@ -21,12 +21,11 @@ final class TeamDao implements TeamDaoInterface
         $queryBuilder = $this->connection->createQueryBuilder();
 
         return $queryBuilder
-            ->select('t.id, count(*) AS wins, sum(if(g.team_one_id = t.id, g.team_one_score, g.team_two_score)) AS full_score')
+            ->select('t.id, sum(if(g.team_one_id = t.id, g.team_one_score > g.team_two_score, g.team_one_score < g.team_two_score)) AS wins, sum(if(g.team_one_id = t.id, g.team_one_score, g.team_two_score)) AS full_score')
             ->from('team', 't')
-            ->leftJoin('t', 'game', 'g', 't.id = g.team_one_id OR t.id = g.team_two_id')
+            ->join('t', 'game', 'g', 't.id = g.team_one_id OR t.id = g.team_two_id')
             ->andWhere('t.championship_id = :championshipId')
             ->andWhere('t.type = :type')
-            ->andWhere('if(g.team_one_id = t.id, g.team_one_score > g.team_two_score, g.team_one_score < g.team_two_score)')
             ->setParameter('championshipId', $championshipId, UuidType::NAME)
             ->setParameter('type', $teamType->value)
             ->groupBy('t.id')
