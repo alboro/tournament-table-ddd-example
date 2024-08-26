@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Results inside divisions!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        {% if games|length > 0 %}
+            <h1>Here are results inside divisions:</h1>
+
+            {% for teamType in teamTypes %}
+                <code>{{ teamType }}:</code>
+                <ul>
+                    {% for game in games[teamType] %}
+                        <li>{{ game.teamOne }} with {{ game.teamTwo }} scores: {{ game.teamOneScore }}:{{ game.teamTwoScore }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% else %}
+            <h1>Already created before</h1>
+        {% endif %}
+
+        <form method="post" action="{{ path('app_results') }}">
+            <input type="hidden" name="championshipId" value="{{ championshipId }}">
+            <input type="submit" value="See play-off results!">
+        </form>
+    </div>
+{% endblock %}

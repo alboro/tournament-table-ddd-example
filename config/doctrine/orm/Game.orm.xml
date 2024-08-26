@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Entity\Game" repository-class="App\Infrastructure\Doctrine\Repository\GameRepository">
+        <id name="id" type="uuid">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="teamOneScore" type="smallint" nullable="true"/>
+        <field name="teamTwoScore" type="smallint" nullable="true"/>
+        <field name="dividerOfTheFinal" type="smallint" nullable="true"/>
+        <field name="createdAt" column="created_at" type="datetime_immutable" />
+
+        <many-to-one field="teamOne" target-entity="App\Domain\Entity\Team">
+            <join-column name="team_one_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="teamTwo" target-entity="App\Domain\Entity\Team">
+            <join-column name="team_two_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

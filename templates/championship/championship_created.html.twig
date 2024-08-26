@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Championship created!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Championship created!</h1>
+
+    {% for teamType in teamTypes %}
+        <code>{{ teamType }}:</code>
+        <ul>
+            {% for team in teams[teamType] %}
+                <li>{{ team.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_championship_scores') }}">
+        <input type="hidden" name="championshipId" value="{{ championshipId }}">
+        <input type="submit" value="Get division A, B results!">
+    </form>
+</div>
+{% endblock %}
