@@ -22,7 +22,7 @@ final class ChampionshipTransformer implements ChampionshipTransformerInterface
         return [
             'championshipId' => $championship->id()->toString(),
             'teams' => $teamData,
-            'teamTypes' => array_map(function (TeamType $teamType) { return $teamType->value; }, TeamType::cases()),
+            'teamTypes' => array_map(static fn (TeamType $teamType): string => $teamType->value, TeamType::cases()),
         ];
     }
 }

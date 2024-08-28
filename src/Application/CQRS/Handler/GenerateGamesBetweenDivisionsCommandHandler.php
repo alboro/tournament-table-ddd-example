@@ -42,13 +42,7 @@ final class GenerateGamesBetweenDivisionsCommandHandler implements GenerateGames
                     /** @var Team $teamY */
                     if ($teamY !== $teamX && !$this->gameDao->isGameWithTeamsExist($teamX->id(), $teamY->id())) {
                         $game = new Game(Uuid::v7(), $teamX, $teamY);
-                        while (true) {
-                            try {
-                                $game->gameResultedWith(rand(1, 10), rand(1, 10));
-                                break;
-                            } catch (DomainException) {
-                            }
-                        }
+                        $game->generateResults();
                         $this->gameRepository->save($game);
                         $createdGames[] = $game;
                     }

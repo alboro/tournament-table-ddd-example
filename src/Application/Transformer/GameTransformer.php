@@ -25,7 +25,7 @@ final class GameTransformer implements GameTransformerInterface
         return [
             'championshipId' => $championship->id()->toString(),
             'games' => $gamesAsType,
-            'teamTypes' => array_map(function (TeamType $teamType) { return $teamType->value; }, TeamType::cases()),
+            'teamTypes' => array_map(static fn (TeamType $teamType): string => $teamType->value, TeamType::cases()),
         ];
     }
 }

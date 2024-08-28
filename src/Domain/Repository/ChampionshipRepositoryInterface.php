@@ -7,7 +7,7 @@ use Symfony\Component\Uid\Uuid;
 
 interface ChampionshipRepositoryInterface
 {
-    public function save(Championship $team): void;
+    public function save(Championship $championship): void;
 
     public function findChampionship(Uuid $id): ?Championship;
 }

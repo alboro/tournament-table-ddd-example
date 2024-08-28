@@ -56,6 +56,17 @@ class Game
         return $this->dividerOfTheFinal;
     }
 
+    public function generateResults(): void
+    {
+        while (true) {
+            try {
+                $this->gameResultedWith(rand(1, 10), rand(1, 10));
+                break;
+            } catch (DomainException) {
+            }
+        }
+    }
+
     public function gameResultedWith(int $teamOneScore, int $teamTwoScore): void
     {
         if ($teamOneScore === $teamTwoScore) {
@@ -68,5 +79,13 @@ class Game
     public function isInsideDivision(): bool
     {
         return $this->teamTwo->type() === $this->teamOne->type();
+    }
+
+    public function winnerTeam(): Team
+    {
+        if (null === $this->teamOneScore || null === $this->teamTwoScore) {
+            throw new DomainException('Team one score and/or two score are not set!');
+        }
+        return $this->teamOneScore > $this->teamTwoScore ? $this->teamOneScore : $this->teamTwoScore;
     }
 }

@@ -22,4 +22,9 @@ class TeamRepository extends ServiceEntityRepository implements TeamRepositoryIn
     {
         return $this->find($id);
     }
+
+    public function findTeams(Uuid ...$ids): array
+    {
+        return $this->findBy(['id' => $ids]);
+    }
 }

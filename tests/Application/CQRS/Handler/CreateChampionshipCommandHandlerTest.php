@@ -44,6 +44,5 @@ class CreateChampionshipCommandHandlerTest extends TestCase
             }))
             ->willReturn([]);
         $this->handler->handle(new CreateChampionshipCommand($teamCount));
-        $this->assertTrue(true);
     }
 }
