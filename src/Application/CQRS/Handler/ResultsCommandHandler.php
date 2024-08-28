@@ -34,10 +34,8 @@ final class ResultsCommandHandler implements ResultsCommandHandlerInterface
         }
         $winner = $this->playFinal(
             ...$this->playSemiFinal(
-                ...$this->playSemiFinal(
-                    ...$this->playQuarterFinal(
-                        ...$this->getTeamsTopByType($championship)
-                    )
+                ...$this->playQuarterFinal(
+                    ...$this->getTeamsTopByType($championship)
                 )
             )
         );
